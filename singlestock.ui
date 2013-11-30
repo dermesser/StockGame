@@ -95,7 +95,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Stocks in Depot:</string>
+    <string>Shares in Depot:</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="orderStep">

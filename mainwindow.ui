@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>881</width>
-    <height>510</height>
+    <width>1095</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="SingleStock" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>110</y>
+      <x>10</x>
+      <y>140</y>
       <width>531</width>
       <height>321</height>
      </rect>
@@ -27,10 +27,20 @@
    <widget class="QLCDNumber" name="lcdMoney">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>30</y>
+      <x>470</x>
+      <y>20</y>
       <width>261</width>
       <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="SingleStock" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>140</y>
+      <width>531</width>
+      <height>321</height>
      </rect>
     </property>
    </widget>

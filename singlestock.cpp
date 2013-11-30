@@ -17,9 +17,17 @@ SingleStock::SingleStock(QWidget *parent) :
     QObject::connect(&timer,SIGNAL( timeout() ),&timer,SLOT( start() ));
     QObject::connect(ui->buyButton,SIGNAL( clicked() ),this,SLOT( buyStock() ));
     QObject::connect(ui->sellButton,SIGNAL( clicked() ),this,SLOT( sellStock() ));
+    QObject::connect(ui->orderStep,SIGNAL( valueChanged(int) ),this,SLOT( changeBuyStep(int) ));
 
     timer.setInterval(50);
     timer.start();
+}
+
+void SingleStock::changeBuyStep(int n)
+{
+    buy_step = n;
+
+    return;
 }
 
 void SingleStock::buyStock(void)
@@ -40,7 +48,7 @@ void SingleStock::buyStock(void)
 
 void SingleStock::sellStock(void)
 {
-    if (stocks_in_depot <= 0)
+    if (stocks_in_depot - buy_step <= 0)
         return;
 
     double current_price = ui->plot->getPrice();

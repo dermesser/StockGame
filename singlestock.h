@@ -22,6 +22,8 @@ public:
 public slots:
     void buyStock();
     void sellStock();
+private slots:
+    void changeBuyStep(int);
 
 private:
     Ui::SingleStock *ui;

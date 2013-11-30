@@ -22,13 +22,13 @@ public:
 public slots:
     void buyStock();
     void sellStock();
+
 private slots:
     void changeBuyStep(int);
+    void bankrupt();
 
 private:
     Ui::SingleStock *ui;
-
-    QTimer timer;
 
     int stocks_in_depot;
     double total_value;

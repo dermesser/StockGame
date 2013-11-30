@@ -12,22 +12,24 @@ TARGET = stocktrader
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    qcustomplot.cpp \
-    stockpricehistoryplot.cpp \
-    singlestock.cpp \
-    moneyavailable.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp \
+    src/qcustomplot.cpp \
+    src/stockpricehistoryplot.cpp \
+    src/singlestock.cpp \
+    src/moneyavailable.cpp
 
 HEADERS  +=\
-    mainwindow.h \
-    qcustomplot.h \
-    stockpricehistoryplot.h \
-    singlestock.h \
-    moneyavailable.h
+    header/mainwindow.h \
+    header/qcustomplot.h \
+    header/stockpricehistoryplot.h \
+    header/singlestock.h \
+    header/moneyavailable.h
 
 FORMS    += mainwindow.ui \
     singlestock.ui
 
 OTHER_FILES += \
     LICENSE.txt
+
+INCLUDEPATH += header/

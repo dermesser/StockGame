@@ -16,6 +16,7 @@ public:
 
 signals:
     void priceChanged(int);
+    void bankrupt(void);
 
 public slots:
     void setData();

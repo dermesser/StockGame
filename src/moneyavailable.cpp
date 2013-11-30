@@ -1,4 +1,4 @@
-#include "moneyavailable.h"
+#include <moneyavailable.h>
 
 MoneyAvailable::MoneyAvailable(QObject *parent) :
     QObject(parent),

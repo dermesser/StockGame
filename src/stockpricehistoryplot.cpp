@@ -1,4 +1,4 @@
-#include "stockpricehistoryplot.h"
+#include <stockpricehistoryplot.h>
 
 StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
     QCustomPlot(parent),
@@ -11,6 +11,7 @@ StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
 
 void StockPriceHistoryPlot::setRanges(int mx, double my)
 {
+    i = 0;
     xmax = mx;
     ymax = my;
     current_price = my/2;
@@ -31,6 +32,7 @@ void StockPriceHistoryPlot::setRanges(int mx, double my)
 void StockPriceHistoryPlot::initPlot(void)
 {
 // We only have a single graph here (id 0).
+    this->removeGraph(0);
     this->addGraph();
 
     this->xAxis->setRange(0,xmax);
@@ -65,6 +67,8 @@ void StockPriceHistoryPlot::setData(void)
     this->replot();
 
     emit priceChanged(current_price);
+    if ( current_price < 0.02 * ymax )
+        emit bankrupt();
 
     return;
 }

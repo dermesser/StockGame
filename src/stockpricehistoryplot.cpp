@@ -2,14 +2,14 @@
 
 StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
     QCustomPlot(parent),
-    y(1001,0), x(1001),
+    y(1001,0), x(1001), avg(1001,0),
     i(0), xmax(1000),
-    ymax(100), current_price(50)
+    ymax(100), current_price(50), avg_depot_price(0)
 {
-    setRanges(xmax,ymax);
+    initCompany(xmax,ymax);
 }
 
-void StockPriceHistoryPlot::setRanges(int mx, double my)
+void StockPriceHistoryPlot::initCompany(int mx, double my)
 {
     i = 0;
     xmax = mx;
@@ -19,10 +19,11 @@ void StockPriceHistoryPlot::setRanges(int mx, double my)
     generator.setRange(ymax);
     ymax = generator.getRange();
 
-    QVector<double> ny(xmax+1), nx(xmax+1);
+    QVector<double> ny(xmax+1), nx(xmax+1), na(xmax+1);
 
     y = ny;
     x = nx;
+    avg = na;
 
     for (int i = 0; i < xmax; i++)
         x[i] = i;
@@ -34,8 +35,9 @@ void StockPriceHistoryPlot::setRanges(int mx, double my)
 
 void StockPriceHistoryPlot::initPlot(void)
 {
-// We only have a single graph here (id 0).
     this->removeGraph(0);
+    this->removeGraph(1);
+    this->addGraph();
     this->addGraph();
 
     this->xAxis->setRange(0,xmax);
@@ -44,6 +46,7 @@ void StockPriceHistoryPlot::initPlot(void)
     this->yAxis->setLabel("Stock Price/EUR");
 
     this->graph(0)->setPen(QPen(Qt::red));
+    this->graph(1)->setPen(QPen(Qt::green));
 
     this->show();
 
@@ -64,7 +67,10 @@ void StockPriceHistoryPlot::setData(void)
     y[i] = current_price = generator.getPrice();
     i++;
 
+    avg.fill(avg_depot_price,xmax+1);
+
     this->graph(0)->setData(x,y);
+    this->graph(1)->setData(x,avg);
     this->replot();
 
     emit priceChanged(current_price);

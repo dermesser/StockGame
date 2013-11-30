@@ -1,16 +1,17 @@
 #include <singlestock.h>
 #include <ui_singlestock.h>
 #include <mainwindow.h>
+#include <iostream>
 
 SingleStock::SingleStock(QWidget *parent) :
     QWidget(parent),
     buy_step(1),
     ui(new Ui::SingleStock),
-    stocks_in_depot(0), total_value(0)
+    shares_in_depot(0), total_value(0)
 {
     ui->setupUi(this);
 
-    ui->plot->setRanges(500,100);
+    ui->plot->initCompany(500,100);
 
     QObject::connect(ui->plot,SIGNAL( priceChanged(int) ),ui->lcdPrice,SLOT( display(int) ));
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
@@ -37,44 +38,59 @@ void SingleStock::buyStock(void)
     if (! main_timer.isActive() || deposit.getMoney() - order_volume < 0)
         return;
 
-    stocks_in_depot += buy_step;
+    shares_in_depot += buy_step;
 
     deposit.changeMoney(deposit.getMoney()-order_volume);
 
     total_value += order_volume;
 
-    ui->lcdStocks->display(ui->lcdStocks->intValue() + buy_step);
+    ui->lcdStocks->display(shares_in_depot);
+
+    updateAvgLine();
 
     return;
 }
 
 void SingleStock::sellStock(void)
 {
-    if (! main_timer.isActive() || stocks_in_depot - buy_step < 0)
+
+    if (! main_timer.isActive() || shares_in_depot - buy_step < 0)
         return;
 
     double current_price = ui->plot->getPrice();
     double order_volume = buy_step * current_price;
 
-    stocks_in_depot -= buy_step;
-
-    total_value -= buy_step * (total_value/stocks_in_depot);
+    total_value -= buy_step * (total_value/shares_in_depot);
+    shares_in_depot -= buy_step;
 
     deposit.changeMoney(deposit.getMoney()+order_volume);
 
-    ui->lcdStocks->display(ui->lcdStocks->intValue() - buy_step);
+    ui->lcdStocks->display(shares_in_depot);
+
+    updateAvgLine();
 
     return;
 }
 
 void SingleStock::bankrupt(void)
 {
-    stocks_in_depot = 0;
+    shares_in_depot = 0;
     total_value = 0;
 
     ui->lcdStocks->display(0);
 
-    ui->plot->setRanges(500,100);
+    ui->plot->initCompany(500,100);
+
+    updateAvgLine();
+}
+
+void SingleStock::updateAvgLine(void)
+{
+    if (shares_in_depot > 0)
+        ui->plot->avg_depot_price = total_value / shares_in_depot;
+    else ui->plot->avg_depot_price = 0;
+
+    return;
 }
 
 SingleStock::~SingleStock()

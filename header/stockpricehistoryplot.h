@@ -17,7 +17,7 @@ class StockPriceHistoryPlot : public QCustomPlot
 public:
     explicit StockPriceHistoryPlot(QWidget *parent = 0);
 
-    void setRanges(int xmax = 1000, double ymax = 100);
+    void initCompany(int xmax = 1000, double ymax = 100);
 
     double getPrice(void);
 
@@ -35,10 +35,12 @@ private:
     // functions can be used!
     LocalPriceGen generator;
 
-    QVector<double> y,x;
+    QVector<double> y,x,avg;
     int i, xmax, ymax;
-    int current_price;
+    double current_price, avg_depot_price;
 
+
+    friend class SingleStock;
 };
 
 #endif // STOCKPRICEHISTORYPLOT_H

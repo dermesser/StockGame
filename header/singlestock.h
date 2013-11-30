@@ -31,8 +31,9 @@ private slots:
 private:
     Ui::SingleStock *ui;
 
+    void updateAvgLine(void);
 
-    int stocks_in_depot;
+    int shares_in_depot;
     double total_value;
 };
 

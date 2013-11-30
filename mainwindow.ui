@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>StockGame</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="SingleStock" name="widget" native="true">
@@ -27,8 +27,8 @@
    <widget class="QLCDNumber" name="lcdMoney">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>20</y>
+      <x>450</x>
+      <y>40</y>
       <width>261</width>
       <height>51</height>
      </rect>

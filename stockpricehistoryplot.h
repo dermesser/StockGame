@@ -12,6 +12,7 @@ public:
 
     void setRanges(int xmax = 1000, double ymax = 100);
 
+    double getPrice(void);
 
 signals:
     void priceChanged(int);
@@ -25,7 +26,7 @@ private:
 
     QVector<double> y,x;
     int i, xmax;
-    double ymax, current_value;
+    double ymax, current_price;
 
 };
 

@@ -15,13 +15,19 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     qcustomplot.cpp \
-    stockpricehistoryplot.cpp
+    stockpricehistoryplot.cpp \
+    singlestock.cpp \
+    moneyavailable.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  +=\
+    mainwindow.h \
     qcustomplot.h \
-    stockpricehistoryplot.h
+    stockpricehistoryplot.h \
+    singlestock.h \
+    moneyavailable.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    singlestock.ui
 
 OTHER_FILES += \
     LICENSE.txt

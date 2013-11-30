@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "stockpricehistoryplot.h"
+#include "moneyavailable.h"
 
 namespace Ui {
 class MainWindow;

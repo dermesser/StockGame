@@ -4,7 +4,7 @@ StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
     QCustomPlot(parent),
     y(1001,0), x(1001),
     i(0), xmax(1000),
-    ymax(100), current_value(50)
+    ymax(100), current_price(50)
 {
     setRanges(xmax,ymax);
 }
@@ -13,7 +13,7 @@ void StockPriceHistoryPlot::setRanges(int mx, double my)
 {
     xmax = mx;
     ymax = my;
-    current_value = my/2;
+    current_price = my/2;
 
     QVector<double> ny(xmax+1), nx(xmax+1);
 
@@ -57,13 +57,13 @@ void StockPriceHistoryPlot::setData(void)
 
     // Random number calculation
 
-    y[i] = current_value = getNewValue(current_value);
+    y[i] = current_price = getNewValue(current_price);
     i++;
 
     this->graph(0)->setData(x,y);
     this->replot();
 
-    emit priceChanged(current_value);
+    emit priceChanged(current_price);
 
     return;
 }
@@ -84,4 +84,9 @@ double StockPriceHistoryPlot::getNewValue(double value)
     else value += ((qrand() % 10) - 4.5)/getDivisor();
 
     return value;
+}
+
+double StockPriceHistoryPlot::getPrice(void)
+{
+    return current_price;
 }

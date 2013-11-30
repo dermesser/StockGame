@@ -54,6 +54,7 @@ void StockPriceHistoryPlot::setData(void)
 
     // Clamp graph to the ground (before replotting it; gives a nicer limit between new and old)
     y[(i+1)%xmax] = 0;
+    y[(i+2)%xmax] = ymax;
 
     // Random number calculation
 

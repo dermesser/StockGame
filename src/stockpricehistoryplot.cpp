@@ -16,6 +16,9 @@ void StockPriceHistoryPlot::setRanges(int mx, double my)
     ymax = my;
     current_price = my/2;
 
+    generator.setRange(ymax);
+    ymax = generator.getRange();
+
     QVector<double> ny(xmax+1), nx(xmax+1);
 
     y = ny;
@@ -47,8 +50,6 @@ void StockPriceHistoryPlot::initPlot(void)
     return;
 }
 
-double getNewValue(double);
-
 void StockPriceHistoryPlot::setData(void)
 {
     if (i > xmax)
@@ -60,7 +61,7 @@ void StockPriceHistoryPlot::setData(void)
 
     // Random number calculation
 
-    y[i] = current_price = getNewValue(current_price);
+    y[i] = current_price = generator.getPrice();
     i++;
 
     this->graph(0)->setData(x,y);
@@ -71,24 +72,6 @@ void StockPriceHistoryPlot::setData(void)
         emit bankrupt();
 
     return;
-}
-
-double getDivisor(void)
-{
-    return 1 + (qrand() % 5);
-}
-
-double StockPriceHistoryPlot::getNewValue(double value)
-{
-    int threshold = 0.05 * ymax;
-
-    if ( value < threshold )
-        value += ((qrand() % 10) - 3)/getDivisor();
-    else if ( value > (ymax - threshold) )
-        value += ((qrand() % 10) - 7)/getDivisor();
-    else value += ((qrand() % 10) - 4.5)/getDivisor();
-
-    return value;
 }
 
 double StockPriceHistoryPlot::getPrice(void)

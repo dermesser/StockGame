@@ -2,8 +2,9 @@
 #define SINGLESTOCK_H
 
 #include <QWidget>
-#include "stockpricehistoryplot.h"
 #include <QTimer>
+
+#include <stockpricehistoryplot.h>
 
 namespace Ui {
 class SingleStock;
@@ -29,6 +30,7 @@ private slots:
 
 private:
     Ui::SingleStock *ui;
+
 
     int stocks_in_depot;
     double total_value;

@@ -16,6 +16,11 @@ namespace Ui {
 class MainWindow;
 }
 
+/*
+ * Not only the main window, but also responsible for the current
+ * state of the game (running/paused)
+ */
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

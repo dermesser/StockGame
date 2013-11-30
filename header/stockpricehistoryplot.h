@@ -2,8 +2,15 @@
 #define STOCKPRICEHISTORYPLOT_H
 
 #include <QVector>
-#include "qcustomplot.h"
+#include <qcustomplot.h>
+#include <localpricegen.h>
 
+/* This class does not only display the history of the stock price,
+   but also looks for bankrupcy and price changes.
+
+   The current price is fetched from a price generator, e.g. LocalPriceGen
+   but maybe also some multi-player network price generator.
+*/
 class StockPriceHistoryPlot : public QCustomPlot
 {
     Q_OBJECT
@@ -23,11 +30,14 @@ public slots:
 
 private:
     void initPlot(void);
-    double getNewValue(double);
+
+    // this should be a member of the GenericPriceGenerator class so the same
+    // functions can be used!
+    LocalPriceGen generator;
 
     QVector<double> y,x;
-    int i, xmax;
-    double ymax, current_price;
+    int i, xmax, ymax;
+    int current_price;
 
 };
 

@@ -20,10 +20,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-### Other components
+#################### Other components ####################
 
-This program uses QCustomPlot, which uses the GNU General Public License (reproduced
-below).
+This program uses Emanuel Eichhammer's QCustomPlot class (http://www.qcustomplot.com), 
+which is licensed under the terms and conditions of the GNU
+General Public License (reproduced below).
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007

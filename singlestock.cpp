@@ -35,6 +35,9 @@ void SingleStock::buyStock(void)
     double current_price = ui->plot->getPrice();
     double order_volume = buy_step * current_price;
 
+    if (deposit.getMoney() - order_volume < 0)
+        return;
+
     stocks_in_depot += buy_step;
 
     deposit.changeMoney(deposit.getMoney()-order_volume);
@@ -48,7 +51,7 @@ void SingleStock::buyStock(void)
 
 void SingleStock::sellStock(void)
 {
-    if (stocks_in_depot - buy_step <= 0)
+    if (stocks_in_depot - buy_step < 0)
         return;
 
     double current_price = ui->plot->getPrice();

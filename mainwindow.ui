@@ -27,7 +27,7 @@
    <widget class="QLCDNumber" name="lcdMoney">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>500</x>
       <y>40</y>
       <width>261</width>
       <height>51</height>
@@ -42,6 +42,19 @@
       <width>531</width>
       <height>321</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>60</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Money available:</string>
     </property>
    </widget>
   </widget>

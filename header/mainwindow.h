@@ -33,8 +33,6 @@ public slots:
     void pauseGame(void);
     void continueGame(void);
 
-private slots:
-
 private:
    Ui::MainWindow *ui;
 

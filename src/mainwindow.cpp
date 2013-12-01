@@ -13,11 +13,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lcdMoney->hide();
     ui->initialMoney->setValue(default_initial_money);
 
-    QObject::connect(&deposit,SIGNAL(moneyChanged(int)),ui->lcdMoney,SLOT(display(int)));
+    QObject::connect(&deposit,SIGNAL( moneyChanged(int) ),ui->lcdMoney,SLOT(display(int)));
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( startGame() ));
+    QObject::connect(&reseed_timer,SIGNAL( timeout() ),this,SLOT( seed() ));
+
+    reseed_timer.setSingleShot(false);
+    reseed_timer.setInterval(5e3);
 
     main_timer.setSingleShot(false);
     main_timer.setInterval(main_timer_interval);
+}
+
+void MainWindow::seed(void)
+{
+    qsrand(QDateTime::currentMSecsSinceEpoch());
+
+    return;
 }
 
 void MainWindow::startGame(void)
@@ -38,11 +49,14 @@ void MainWindow::startGame(void)
 void MainWindow::pauseGame(void)
 {
     main_timer.stop();
+
     ui->startButton->setText("Continue");
+
     QObject::disconnect(ui->startButton,SIGNAL( clicked() ),this,SLOT( pauseGame() ));
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( continueGame() ));
 
 }
+
 
 void MainWindow::continueGame(void)
 {

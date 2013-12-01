@@ -28,13 +28,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
 public slots:
     void startGame(void);
     void pauseGame(void);
     void continueGame(void);
+    void seed(void);
 
 private:
    Ui::MainWindow *ui;
+
+   QTimer reseed_timer;
 
 };
 

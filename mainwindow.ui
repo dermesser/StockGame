@@ -37,7 +37,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>80</height>
+            <height>70</height>
            </size>
           </property>
           <property name="font">
@@ -92,17 +92,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="startButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Start!</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QPushButton" name="startButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Start!</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -112,7 +116,9 @@
          <widget class="SingleStock" name="widget_2" native="true"/>
         </item>
         <item>
-         <widget class="SingleStock" name="widget_3" native="true"/>
+         <widget class="SingleStock" name="widget_3" native="true">
+          <zorder></zorder>
+         </widget>
         </item>
        </layout>
       </item>

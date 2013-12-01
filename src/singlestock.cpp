@@ -11,7 +11,7 @@ SingleStock::SingleStock(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->plot->initCompany(500,100);
+    ui->plot->initCompany(750,100);
 
     QObject::connect(ui->plot,SIGNAL( priceChanged(int) ),ui->lcdPrice,SLOT( display(int) ));
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
@@ -79,7 +79,7 @@ void SingleStock::bankrupt(void)
 
     ui->lcdStocks->display(0);
 
-    ui->plot->initCompany(500,100);
+    ui->plot->initCompany(750,100);
 
     updateAvgLine();
 }

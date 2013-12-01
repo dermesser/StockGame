@@ -35,7 +35,7 @@ private:
     // functions can be used!
     LocalPriceGen generator;
 
-    QVector<double> y,x,avg,update_limit;
+    QVector<double> y,x,avg,update_limit,update_limitx,avgx;
     int i, xmax, ymax;
     double current_price, avg_depot_price;
 

@@ -13,7 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp\
-        src/mainwindow.cpp \
+    src/mainwindow.cpp \
     src/qcustomplot.cpp \
     src/stockpricehistoryplot.cpp \
     src/singlestock.cpp \

@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QVector>
 #include <QTimer>
-#include <unistd.h>
 
 #include "stockpricehistoryplot.h"
 #include "moneyavailable.h"

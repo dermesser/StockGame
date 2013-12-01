@@ -51,7 +51,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdPrice"/>
+            <widget class="QLCDNumber" name="lcdPrice">
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -65,7 +69,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLCDNumber" name="lcdStocks"/>
+            <widget class="QLCDNumber" name="lcdStocks">
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -94,7 +102,7 @@
   <customwidget>
    <class>StockPriceHistoryPlot</class>
    <extends>QWidget</extends>
-   <header location="global">stockpricehistoryplot.h</header>
+   <header>stockpricehistoryplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

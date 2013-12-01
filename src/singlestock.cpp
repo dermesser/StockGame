@@ -3,7 +3,7 @@
 #include <mainwindow.h>
 #include <QTimer>
 
-int xmax = 500;
+int xmax = 600;
 
 SingleStock::SingleStock(QWidget *parent) :
     QWidget(parent),

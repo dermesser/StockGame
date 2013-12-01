@@ -1,12 +1,8 @@
 #include <stockpricehistoryplot.h>
 
 StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
-    QCustomPlot(parent),
-    y(1001,0), x(1001), avg(1001,0),
-    i(0), xmax(1000),
-    ymax(100), current_price(50), avg_depot_price(0)
+    QCustomPlot(parent)
 {
-    initCompany(xmax,ymax);
 }
 
 void StockPriceHistoryPlot::initCompany(int mx, double my)
@@ -15,20 +11,19 @@ void StockPriceHistoryPlot::initCompany(int mx, double my)
     xmax = mx;
     ymax = my;
     current_price = my/2;
+    avg_depot_price = 0;
 
     generator.setRange(ymax);
     ymax = generator.getRange();
 
-    QVector<double> ny(xmax+1), nx(xmax+1), na(xmax+1);
-
-    y = ny;
-    x = nx;
-    avg = na;
+    y.fill(0,xmax+1);
+    x.resize(xmax+1);
+    avg.fill(0,xmax+1);
+    update_limit.fill(0,xmax+1);
 
     for (int i = 0; i < xmax; i++)
     {
         x[i] = i;
-        y[i] = 0;
     }
 
     initPlot();
@@ -42,6 +37,8 @@ void StockPriceHistoryPlot::initPlot(void)
 
     this->removeGraph(0);
     this->removeGraph(1);
+    this->removeGraph(2);
+    this->addGraph();
     this->addGraph();
     this->addGraph();
 
@@ -51,7 +48,9 @@ void StockPriceHistoryPlot::initPlot(void)
     this->yAxis->setLabel("Stock Price");
 
     this->graph(0)->setPen(QPen(Qt::red));
+    this->graph(0)->setBrush(QBrush(QColor(255,0,0,30)));
     this->graph(1)->setPen(QPen(Qt::green));
+    this->graph(2)->setPen(QPen(Qt::blue));
 
     this->show();
 
@@ -63,9 +62,8 @@ void StockPriceHistoryPlot::setData(void)
     if (i > xmax)
         i = 0;
 
-    // Clamp graph to the ground (before replotting it; gives a nicer limit between new and old)
-    y[(i+1)%xmax] = 0;
-    y[(i+2)%xmax] = ymax;
+    update_limit[i] = 0;
+    update_limit[(i+1)%xmax] = ymax;
 
     // Random number calculation
 
@@ -76,6 +74,7 @@ void StockPriceHistoryPlot::setData(void)
 
     this->graph(0)->setData(x,y);
     this->graph(1)->setData(x,avg);
+    this->graph(2)->setData(x,update_limit);
     this->replot();
 
     emit priceChanged(current_price);

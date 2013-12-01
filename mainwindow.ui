@@ -43,7 +43,7 @@
           <property name="font">
            <font>
             <family>Sans Serif</family>
-            <pointsize>22</pointsize>
+            <pointsize>28</pointsize>
            </font>
           </property>
           <property name="minimum">
@@ -117,7 +117,6 @@
         </item>
         <item>
          <widget class="SingleStock" name="widget_3" native="true">
-          <zorder></zorder>
          </widget>
         </item>
        </layout>

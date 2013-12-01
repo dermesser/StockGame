@@ -1,5 +1,6 @@
 #include <mainwindow.h>
 #include <ui_mainwindow.h>
+#include <iostream>
 
 MoneyAvailable deposit;
 QTimer main_timer;
@@ -20,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     reseed_timer.setSingleShot(false);
     reseed_timer.setInterval(5e3);
 
+    seed();
+
+    reseed_timer.start();
+
     main_timer.setSingleShot(false);
     main_timer.setInterval(main_timer_interval);
 }
@@ -28,6 +33,7 @@ void MainWindow::seed(void)
 {
     qsrand(QDateTime::currentMSecsSinceEpoch());
 
+    //std::cout << "Reseed: " << QDateTime::currentMSecsSinceEpoch() << "\n";
     return;
 }
 

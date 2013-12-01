@@ -26,7 +26,10 @@ void StockPriceHistoryPlot::initCompany(int mx, double my)
     avg = na;
 
     for (int i = 0; i < xmax; i++)
+    {
         x[i] = i;
+        y[i] = 0;
+    }
 
     initPlot();
 
@@ -35,6 +38,8 @@ void StockPriceHistoryPlot::initCompany(int mx, double my)
 
 void StockPriceHistoryPlot::initPlot(void)
 {
+    this->hide();
+
     this->removeGraph(0);
     this->removeGraph(1);
     this->addGraph();
@@ -43,7 +48,7 @@ void StockPriceHistoryPlot::initPlot(void)
     this->xAxis->setRange(0,xmax);
     this->xAxis->setTickLabels(false);
     this->yAxis->setRange(0,ymax);
-    this->yAxis->setLabel("Stock Price/EUR");
+    this->yAxis->setLabel("Stock Price");
 
     this->graph(0)->setPen(QPen(Qt::red));
     this->graph(1)->setPen(QPen(Qt::green));

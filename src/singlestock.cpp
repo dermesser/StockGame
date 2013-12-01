@@ -1,17 +1,20 @@
 #include <singlestock.h>
 #include <ui_singlestock.h>
 #include <mainwindow.h>
-#include <iostream>
+#include <QTimer>
+
+int xmax = 500;
 
 SingleStock::SingleStock(QWidget *parent) :
     QWidget(parent),
     buy_step(1),
     ui(new Ui::SingleStock),
-    shares_in_depot(0), total_value(0)
+    shares_in_depot(0), total_value(0),
+    isBankrupt(false)
 {
     ui->setupUi(this);
 
-    ui->plot->initCompany(750,100);
+    ui->plot->initCompany(xmax,100);
 
     QObject::connect(ui->plot,SIGNAL( priceChanged(int) ),ui->lcdPrice,SLOT( display(int) ));
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
@@ -21,6 +24,10 @@ SingleStock::SingleStock(QWidget *parent) :
 
     QObject::connect(ui->plot,SIGNAL( bankrupt() ),this,SLOT( bankrupt() ));
 
+    QPalette Pal;
+    Pal.setColor(QPalette::Background,Qt::red);
+    ui->lcdPrice->setAutoFillBackground(false);
+    ui->lcdPrice->setPalette(Pal);
 }
 
 void SingleStock::changeBuyStep(int n)
@@ -35,7 +42,7 @@ void SingleStock::buyStock(void)
     double current_price = ui->plot->getPrice();
     double order_volume = buy_step * current_price;
 
-    if (! main_timer.isActive() || deposit.getMoney() - order_volume < 0)
+    if (isBankrupt || ! main_timer.isActive() || deposit.getMoney() - order_volume < 0)
         return;
 
     shares_in_depot += buy_step;
@@ -54,7 +61,7 @@ void SingleStock::buyStock(void)
 void SingleStock::sellStock(void)
 {
 
-    if (! main_timer.isActive() || shares_in_depot - buy_step < 0)
+    if (isBankrupt || ! main_timer.isActive() || shares_in_depot - buy_step < 0)
         return;
 
     double current_price = ui->plot->getPrice();
@@ -78,10 +85,27 @@ void SingleStock::bankrupt(void)
     total_value = 0;
 
     ui->lcdStocks->display(0);
+    ui->lcdPrice->display(0);
+    ui->lcdPrice->setAutoFillBackground(true);
 
-    ui->plot->initCompany(750,100);
+    QObject::disconnect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
+
+    // A QTimer object would be destructed before firing!
+    QTimer::singleShot(5000,this,SLOT( reInit()));
+
+    return;
+}
+
+void SingleStock::reInit(void)
+{
+    ui->plot->initCompany(xmax,100);
+    ui->lcdPrice->setAutoFillBackground(false);
+
+    QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
 
     updateAvgLine();
+
+    return;
 }
 
 void SingleStock::updateAvgLine(void)

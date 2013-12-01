@@ -26,7 +26,8 @@ public slots:
 
 private slots:
     void changeBuyStep(int);
-    void bankrupt();
+    void bankrupt(void);
+    void reInit(void);
 
 private:
     Ui::SingleStock *ui;
@@ -35,6 +36,7 @@ private:
 
     int shares_in_depot;
     double total_value;
+    bool isBankrupt;
 };
 
 #endif // SINGLESTOCK_H

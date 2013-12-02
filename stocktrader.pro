@@ -14,7 +14,7 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp\
     src/mainwindow.cpp \
-    src/qcustomplot.cpp \
+    lib/qcustomplot.cpp \
     src/stockpricehistoryplot.cpp \
     src/singlestock.cpp \
     src/moneyavailable.cpp \
@@ -24,7 +24,7 @@ SOURCES += src/main.cpp\
 
 HEADERS  +=\
     header/mainwindow.h \
-    header/qcustomplot.h \
+    lib/qcustomplot.h \
     header/stockpricehistoryplot.h \
     header/singlestock.h \
     header/moneyavailable.h \
@@ -38,4 +38,4 @@ FORMS    += mainwindow.ui \
 OTHER_FILES += \
     LICENSE.txt
 
-INCLUDEPATH += header/
+INCLUDEPATH += header/ lib/

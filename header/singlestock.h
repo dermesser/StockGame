@@ -32,11 +32,6 @@ private slots:
 private:
     Ui::SingleStock *ui;
 
-    void updateAvgLine(void);
-
-    int shares_in_depot;
-    double total_value;
-    bool isBankrupt;
 };
 
 #endif // SINGLESTOCK_H

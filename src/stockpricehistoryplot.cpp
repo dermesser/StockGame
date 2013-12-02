@@ -1,20 +1,20 @@
 #include <stockpricehistoryplot.h>
+#include <company.h>
+#include <iostream>
 
 StockPriceHistoryPlot::StockPriceHistoryPlot(QWidget *parent) :
     QCustomPlot(parent)
 {
+    company.initCompany();
 }
 
-void StockPriceHistoryPlot::initCompany(int mx, double my)
+void StockPriceHistoryPlot::initCompanyPlot(int mx, double my)
 {
     i = 0;
     xmax = mx;
     ymax = my;
-    current_price = my/2;
-    avg_depot_price = 0;
 
-    generator.setRange(ymax);
-    ymax = generator.getRange();
+    company.initCompany(ymax);
 
     y.fill(0,xmax+1);
     x.resize(xmax+1);
@@ -70,17 +70,21 @@ void StockPriceHistoryPlot::setData(void)
         i = 0;
 
     update_limitx[0] = update_limitx[1] = (i+1)%1000;
+    double current_price = 0;
 
     // Random number calculation
 
-    y[i] = current_price = generator.getPrice();
+    y[i] = current_price = company.updatePrice();
     i++;
 
-    avg.fill(avg_depot_price,2); // Set (0,avg_price) and (xmax,avg_price) for the green line.
+    avg.fill(company.avg_depot_price,2); // Set (0,avg_price) and (xmax,avg_price) for the green line.
 
     this->graph(0)->setData(x,y);
     this->graph(1)->setData(avgx,avg);
     this->graph(2)->setData(update_limitx,update_limit);
+
+    //std::cout << "Average price in dep: " << company.avg_depot_price << "\n";
+
     this->replot();
 
     emit priceChanged(current_price);
@@ -88,9 +92,4 @@ void StockPriceHistoryPlot::setData(void)
         emit bankrupt();
 
     return;
-}
-
-double StockPriceHistoryPlot::getPrice(void)
-{
-    return current_price;
 }

@@ -3,7 +3,7 @@
 
 #include <QVector>
 #include <qcustomplot.h>
-#include <localpricegen.h>
+#include <company.h>
 
 /* This class does not only display the history of the stock price,
    but also looks for bankrupcy and price changes.
@@ -17,9 +17,7 @@ class StockPriceHistoryPlot : public QCustomPlot
 public:
     explicit StockPriceHistoryPlot(QWidget *parent = 0);
 
-    void initCompany(int xmax = 1000, double ymax = 100);
-
-    double getPrice(void);
+    void initCompanyPlot(int xmax = 1000, double ymax = 100);
 
 signals:
     void priceChanged(int);
@@ -31,14 +29,10 @@ public slots:
 private:
     void initPlot(void);
 
-    // this should be a member of the GenericPriceGenerator class so the same
-    // functions can be used!
-    LocalPriceGen generator;
+    Company company;
 
     QVector<double> y,x,avg,update_limit,update_limitx,avgx;
     int i, xmax, ymax;
-    double current_price, avg_depot_price;
-
 
     friend class SingleStock;
 };

@@ -19,7 +19,8 @@ SOURCES += src/main.cpp\
     src/singlestock.cpp \
     src/moneyavailable.cpp \
     src/localpricegen.cpp \
-    src/genericpricegenerator.cpp
+    src/genericpricegenerator.cpp \
+    src/company.cpp
 
 HEADERS  +=\
     header/mainwindow.h \
@@ -28,7 +29,8 @@ HEADERS  +=\
     header/singlestock.h \
     header/moneyavailable.h \
     header/localpricegen.h \
-    header/genericpricegenerator.h
+    header/genericpricegenerator.h \
+    header/company.h
 
 FORMS    += mainwindow.ui \
     singlestock.ui

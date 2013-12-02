@@ -8,13 +8,11 @@ int xmax = 600;
 SingleStock::SingleStock(QWidget *parent) :
     QWidget(parent),
     buy_step(1),
-    ui(new Ui::SingleStock),
-    shares_in_depot(0), total_value(0),
-    isBankrupt(false)
+    ui(new Ui::SingleStock)
 {
     ui->setupUi(this);
 
-    ui->plot->initCompany(xmax,100);
+    ui->plot->initCompanyPlot(xmax,100);
 
     QObject::connect(ui->plot,SIGNAL( priceChanged(int) ),ui->lcdPrice,SLOT( display(int) ));
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
@@ -39,21 +37,17 @@ void SingleStock::changeBuyStep(int n)
 
 void SingleStock::buyStock(void)
 {
-    double current_price = ui->plot->getPrice();
+    double current_price = ui->plot->company.getPrice();
     double order_volume = buy_step * current_price;
 
-    if (isBankrupt || ! main_timer.isActive() || deposit.getMoney() - order_volume < 0)
+    if (ui->plot->company.is_bankrupt || ! main_timer.isActive() || deposit.getMoney() - order_volume < 0)
         return;
-
-    shares_in_depot += buy_step;
 
     deposit.changeMoney(deposit.getMoney()-order_volume);
 
-    total_value += order_volume;
+    ui->plot->company.buy(buy_step);
 
-    ui->lcdStocks->display(shares_in_depot);
-
-    updateAvgLine();
+    ui->lcdStocks->display(ui->plot->company.shares_in_depot);
 
     return;
 }
@@ -61,28 +55,27 @@ void SingleStock::buyStock(void)
 void SingleStock::sellStock(void)
 {
 
-    if (isBankrupt || ! main_timer.isActive() || shares_in_depot - buy_step < 0)
+    if (ui->plot->company.is_bankrupt || ! main_timer.isActive() || ui->plot->company.shares_in_depot - buy_step < 0)
         return;
 
-    double current_price = ui->plot->getPrice();
+    double current_price = ui->plot->company.getPrice();
     double order_volume = buy_step * current_price;
-
-    total_value -= buy_step * (total_value/shares_in_depot);
-    shares_in_depot -= buy_step;
 
     deposit.changeMoney(deposit.getMoney()+order_volume);
 
-    ui->lcdStocks->display(shares_in_depot);
+    ui->plot->company.sell(buy_step);
 
-    updateAvgLine();
+    ui->lcdStocks->display(ui->plot->company.shares_in_depot);
 
     return;
 }
 
 void SingleStock::bankrupt(void)
 {
-    shares_in_depot = 0;
-    total_value = 0;
+    ui->plot->company.shares_in_depot = 0;
+    ui->plot->company.total_value = 0;
+
+    ui->plot->company.recalcAvg();
 
     ui->lcdStocks->display(0);
     ui->lcdPrice->display(0);
@@ -98,21 +91,12 @@ void SingleStock::bankrupt(void)
 
 void SingleStock::reInit(void)
 {
-    ui->plot->initCompany(xmax,100);
+    ui->plot->company.initCompany(100);
     ui->lcdPrice->setAutoFillBackground(false);
 
+    ui->plot->company.recalcAvg();
+
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
-
-    updateAvgLine();
-
-    return;
-}
-
-void SingleStock::updateAvgLine(void)
-{
-    if (shares_in_depot > 0)
-        ui->plot->avg_depot_price = total_value / shares_in_depot;
-    else ui->plot->avg_depot_price = 0;
 
     return;
 }

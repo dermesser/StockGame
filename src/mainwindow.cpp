@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lcdMoney->hide();
     ui->initialMoney->setValue(default_initial_money);
 
+    deposit.changeMoney(default_initial_money);
+
     QObject::connect(&deposit,SIGNAL( moneyChanged(int) ),ui->lcdMoney,SLOT(display(int)));
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( startGame() ));
     QObject::connect(&reseed_timer,SIGNAL( timeout() ),this,SLOT( seed() ));
@@ -74,5 +76,13 @@ void MainWindow::continueGame(void)
 
 MainWindow::~MainWindow()
 {
+    if ( deposit.getMoney() - default_initial_money > 0 )
+        std::cout << "Congratulations! You earned " << deposit.getMoney() - default_initial_money << " units of liquid capital!\n";
+    else if ( deposit.getMoney() - default_initial_money == 0)
+    {}
+    else
+        std::cout << "Congratulations! You lost " << ((-1) * (deposit.getMoney() - default_initial_money)) << " units of liquid capital!\n";
+
     delete ui;
 }
+

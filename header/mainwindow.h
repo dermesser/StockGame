@@ -35,6 +35,8 @@ public slots:
     void continueGame(void);
     void seed(void);
 
+private slots:
+
 private:
    Ui::MainWindow *ui;
 

@@ -21,9 +21,11 @@ SingleStock::SingleStock(QWidget *parent) :
     QObject::connect(ui->sellButton,SIGNAL( clicked() ),this,SLOT( sellStock() ));
     QObject::connect(ui->orderStep,SIGNAL( valueChanged(int) ),this,SLOT( changeBuyStep(int) ));
 
+    // Financial signals
     QObject::connect(&ui->plot->company,SIGNAL( bankrupt(void) ),this,SLOT( bankrupt(void) ));
     QObject::connect(&ui->plot->company,SIGNAL( splitted(void) ),this,SLOT( split(void) ));
 
+    setCompanyName();
 }
 
 void SingleStock::changeBuyStep(int n)
@@ -111,6 +113,7 @@ void SingleStock::bankrupt(void)
 void SingleStock::reInit(void)
 {
     ui->plot->initCompanyPlot(xmax,100);
+    setCompanyName();
 
     clearPriceBG();
 
@@ -122,6 +125,22 @@ void SingleStock::reInit(void)
 void SingleStock::clearPriceBG(void)
 {
     ui->lcdPrice->setAutoFillBackground(false);
+
+    return;
+}
+
+void SingleStock::setCompanyName(void)
+{
+    QString pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    QString name = "___";
+
+
+    for ( int i = 0; i < 3; i++ )
+    {
+        name[i] = pool[qrand()%25];
+    }
+
+    ui->stockNameLbl->setText(name);
 
     return;
 }

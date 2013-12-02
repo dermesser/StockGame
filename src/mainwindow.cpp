@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    seed(); // For the ticker symbols!
+
     ui->setupUi(this);
     ui->lcdMoney->hide();
     ui->initialMoney->setValue(default_initial_money);
@@ -22,8 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     reseed_timer.setSingleShot(false);
     reseed_timer.setInterval(5e3);
-
-    seed();
 
     reseed_timer.start();
 

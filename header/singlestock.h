@@ -24,8 +24,8 @@ public:
     ~SingleStock();
 
 public slots:
-    void buyStock();
-    void sellStock();
+    void buyStock(void);
+    void sellStock(void);
 
 private slots:
     void changeBuyStep(int);
@@ -33,6 +33,7 @@ private slots:
     void reInit(void);
     void split(void); // Only updates LCDs
     void clearPriceBG(void);
+    void setCompanyName(void);
 
 private:
     Ui::SingleStock *ui;

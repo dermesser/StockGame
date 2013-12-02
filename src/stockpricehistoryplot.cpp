@@ -52,7 +52,7 @@ void StockPriceHistoryPlot::initPlot(void)
     this->xAxis->setRange(0,xmax);
     this->xAxis->setTickLabels(false);
     this->yAxis->setRange(0,ymax);
-    this->yAxis->setLabel("Stock Price");
+    //this->yAxis->setLabel("Stock Price");
 
     this->graph(0)->setPen(QPen(Qt::red));
     this->graph(0)->setBrush(QBrush(QColor(255,0,0,30)));

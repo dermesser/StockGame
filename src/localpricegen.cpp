@@ -42,3 +42,10 @@ double LocalPriceGen::getPrice(void)
 
     return value;
 }
+
+void LocalPriceGen::setPrice(double p)
+{
+    current_price = p;
+
+    return;
+}

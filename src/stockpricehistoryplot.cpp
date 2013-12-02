@@ -88,8 +88,6 @@ void StockPriceHistoryPlot::setData(void)
     this->replot();
 
     emit priceChanged(current_price);
-    if ( current_price < 0.02 * ymax )
-        emit bankrupt();
 
     return;
 }

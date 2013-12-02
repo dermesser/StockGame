@@ -5,8 +5,9 @@
 #include <qcustomplot.h>
 #include <company.h>
 
-/* This class does not only display the history of the stock price,
-   but also looks for bankrupcy and price changes.
+/*
+ * This class is the price diagram in a SingleStock widget.
+ * It also owns the company depot.
 
    The current price is fetched from a price generator, e.g. LocalPriceGen
    but maybe also some multi-player network price generator.

@@ -2,6 +2,7 @@
 #include <ui_singlestock.h>
 #include <mainwindow.h>
 #include <QTimer>
+#include <company.h>
 
 int xmax = 600;
 
@@ -20,7 +21,8 @@ SingleStock::SingleStock(QWidget *parent) :
     QObject::connect(ui->sellButton,SIGNAL( clicked() ),this,SLOT( sellStock() ));
     QObject::connect(ui->orderStep,SIGNAL( valueChanged(int) ),this,SLOT( changeBuyStep(int) ));
 
-    QObject::connect(ui->plot,SIGNAL( bankrupt() ),this,SLOT( bankrupt() ));
+    QObject::connect(&ui->plot->company,SIGNAL( bankrupt(void) ),this,SLOT( bankrupt(void) ));
+    QObject::connect(&ui->plot->company,SIGNAL( splitted(void) ),this,SLOT( split(void) ));
 
     QPalette Pal;
     Pal.setColor(QPalette::Background,Qt::red);
@@ -70,6 +72,14 @@ void SingleStock::sellStock(void)
     return;
 }
 
+// Only updates the LCD displays
+void SingleStock::split(void)
+{
+    ui->lcdStocks->display(ui->plot->company.shares_in_depot);
+
+    return;
+}
+
 void SingleStock::bankrupt(void)
 {
     ui->plot->company.shares_in_depot = 0;
@@ -84,14 +94,15 @@ void SingleStock::bankrupt(void)
     QObject::disconnect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
 
     // A QTimer object would be destructed before firing!
-    QTimer::singleShot(5000,this,SLOT( reInit()));
+    // Time to wait before placing a new company on this stock position
+    QTimer::singleShot(4000,this,SLOT( reInit()));
 
     return;
 }
 
 void SingleStock::reInit(void)
 {
-    ui->plot->company.initCompany(100);
+    ui->plot->initCompanyPlot(xmax,100);
     ui->lcdPrice->setAutoFillBackground(false);
 
     ui->plot->company.recalcAvg();

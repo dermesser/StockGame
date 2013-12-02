@@ -13,6 +13,7 @@ public:
     void setRange(int ymax = 100);
     int getRange(void);
     double getPrice(void);
+    void setPrice(double);
 
 private:
     int ymax;

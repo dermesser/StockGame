@@ -8,8 +8,8 @@ int xmax = 600;
 
 SingleStock::SingleStock(QWidget *parent) :
     QWidget(parent),
-    buy_step(1),
-    ui(new Ui::SingleStock)
+    ui(new Ui::SingleStock),
+    buy_step(1)
 {
     ui->setupUi(this);
 

@@ -23,8 +23,6 @@ public:
     explicit SingleStock(QWidget *parent = 0);
     ~SingleStock();
 
-    int buy_step;
-
 public slots:
     void buyStock();
     void sellStock();
@@ -38,6 +36,8 @@ private slots:
 
 private:
     Ui::SingleStock *ui;
+
+    int buy_step;
 
 };
 

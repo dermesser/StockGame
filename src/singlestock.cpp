@@ -24,10 +24,6 @@ SingleStock::SingleStock(QWidget *parent) :
     QObject::connect(&ui->plot->company,SIGNAL( bankrupt(void) ),this,SLOT( bankrupt(void) ));
     QObject::connect(&ui->plot->company,SIGNAL( splitted(void) ),this,SLOT( split(void) ));
 
-    QPalette Pal;
-    Pal.setColor(QPalette::Background,Qt::red);
-    ui->lcdPrice->setAutoFillBackground(false);
-    ui->lcdPrice->setPalette(Pal);
 }
 
 void SingleStock::changeBuyStep(int n)
@@ -75,6 +71,13 @@ void SingleStock::sellStock(void)
 // Only updates the LCD displays
 void SingleStock::split(void)
 {
+    QPalette Pal;
+    Pal.setColor(QPalette::Background,Qt::green);
+    ui->lcdPrice->setAutoFillBackground(true);
+    ui->lcdPrice->setPalette(Pal);
+
+    QTimer::singleShot(4000,this,SLOT( clearPriceBG() ));
+
     ui->lcdStocks->display(ui->plot->company.shares_in_depot);
 
     return;
@@ -93,6 +96,11 @@ void SingleStock::bankrupt(void)
 
     QObject::disconnect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
 
+    QPalette Pal;
+    Pal.setColor(QPalette::Background,Qt::red);
+    ui->lcdPrice->setAutoFillBackground(true);
+    ui->lcdPrice->setPalette(Pal);
+
     // A QTimer object would be destructed before firing!
     // Time to wait before placing a new company on this stock position
     QTimer::singleShot(4000,this,SLOT( reInit()));
@@ -103,11 +111,17 @@ void SingleStock::bankrupt(void)
 void SingleStock::reInit(void)
 {
     ui->plot->initCompanyPlot(xmax,100);
-    ui->lcdPrice->setAutoFillBackground(false);
 
-    ui->plot->company.recalcAvg();
+    clearPriceBG();
 
     QObject::connect(&main_timer,SIGNAL( timeout() ),ui->plot,SLOT( setData()));
+
+    return;
+}
+
+void SingleStock::clearPriceBG(void)
+{
+    ui->lcdPrice->setAutoFillBackground(false);
 
     return;
 }

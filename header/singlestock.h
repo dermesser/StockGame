@@ -34,6 +34,7 @@ private slots:
     void bankrupt(void);
     void reInit(void);
     void split(void); // Only updates LCDs
+    void clearPriceBG(void);
 
 private:
     Ui::SingleStock *ui;

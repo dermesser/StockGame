@@ -36,7 +36,7 @@ double LocalPriceGen::getPrice(void)
         value += ((qrand() % 10) - 3)/getRandomDivisor();
     else if ( value > (ymax - threshold) )
         value += ((qrand() % 10) - 7)/getRandomDivisor();
-    else value += ((qrand() % 10) - 4.5)/getRandomDivisor();
+    else value += ((qrand() % 10) - 4.6)/getRandomDivisor();
 
     current_price = value;
 

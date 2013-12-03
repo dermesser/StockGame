@@ -78,7 +78,7 @@ void SingleStock::split(void)
     ui->lcdPrice->setAutoFillBackground(true);
     ui->lcdPrice->setPalette(Pal);
 
-    QTimer::singleShot(4000,this,SLOT( clearPriceBG() ));
+    QTimer::singleShot(60*main_timer_interval,this,SLOT( clearPriceBG() ));
 
     ui->lcdStocks->display(ui->plot->company.shares_in_depot);
 
@@ -100,7 +100,7 @@ void SingleStock::bankrupt(void)
 
     // A QTimer object would be destructed before firing!
     // Time to wait before placing a new company on this stock position
-    QTimer::singleShot(4000,this,SLOT( reInit()));
+    QTimer::singleShot(60*main_timer_interval,this,SLOT( reInit()));
 
     return;
 }

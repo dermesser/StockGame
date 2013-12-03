@@ -6,10 +6,10 @@ MoneyAvailable deposit;
 QTimer main_timer;
 unsigned int initial_money;
 
+unsigned int main_timer_interval;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    main_timer_interval(0),
     ui(new Ui::MainWindow)
 {
     initial_money = default_initial_money;
@@ -33,7 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     reseed_timer.start();
 
     main_timer.setSingleShot(false);
-    changeInterval(5);
+
+    // Set timer interval to 400 / 8 = 50 ms
+    ui->speedBox->setValue(8);
 }
 
 void MainWindow::seed(void)
@@ -79,9 +81,9 @@ void MainWindow::continueGame(void)
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( pauseGame() ));
 }
 
-void MainWindow::changeInterval(int interval)
+void MainWindow::changeInterval(int interval_divisor)
 {
-    main_timer_interval = max_interval / interval;
+    main_timer_interval = max_interval / interval_divisor;
 
     main_timer.setInterval(main_timer_interval);
 }

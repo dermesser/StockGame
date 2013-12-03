@@ -10,6 +10,7 @@
 
 const int default_initial_money = 10000;
 const int max_interval = 400;
+extern unsigned int main_timer_interval;
 
 namespace Ui {
 class MainWindow;
@@ -39,7 +40,6 @@ private slots:
     void afterGameFinished(void);
 
 private:
-   int main_timer_interval;
 
    Ui::MainWindow *ui;
 

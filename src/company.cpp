@@ -2,6 +2,7 @@
 #include <localpricegen.h>
 #include <iostream>
 
+
 Company::Company(void) :
     current_price(0), shares_in_depot(0), total_value(0),
     ymax(0), is_bankrupt(false), splitted(false)
@@ -25,13 +26,13 @@ double Company::updatePrice(void)
     {
         is_bankrupt = true;
         current_price = shares_in_depot = total_value = 0;
-        recalcAvg();
     }
     else if (current_price >= 0.97 * ymax)
     {
         split();
-        recalcAvg();
     }
+
+    recalcAvg();
 
     return current_price;
 }

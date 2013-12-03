@@ -8,8 +8,8 @@
 #include "stockpricehistoryplot.h"
 #include "moneyavailable.h"
 
-const int main_timer_interval = 50;
 const int default_initial_money = 10000;
+const int max_interval = 400;
 
 namespace Ui {
 class MainWindow;
@@ -33,11 +33,13 @@ public slots:
     void pauseGame(void);
     void continueGame(void);
     void seed(void);
+    void changeInterval(int);
 
 private slots:
     void afterGameFinished(void);
 
 private:
+   int main_timer_interval;
 
    Ui::MainWindow *ui;
 

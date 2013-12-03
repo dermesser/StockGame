@@ -9,6 +9,7 @@ unsigned int initial_money;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    main_timer_interval(0),
     ui(new Ui::MainWindow)
 {
     initial_money = default_initial_money;
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&deposit,SIGNAL( moneyChanged(int) ),ui->lcdMoney,SLOT(display(int)));
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( startGame() ));
     QObject::connect(&reseed_timer,SIGNAL( timeout() ),this,SLOT( seed() ));
+    QObject::connect(ui->speedBox,SIGNAL( valueChanged(int) ),this,SLOT( changeInterval(int)) );
 
     reseed_timer.setSingleShot(false);
     reseed_timer.setInterval(5e3);
@@ -31,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     reseed_timer.start();
 
     main_timer.setSingleShot(false);
-    main_timer.setInterval(main_timer_interval);
+    changeInterval(5);
 }
 
 void MainWindow::seed(void)
@@ -75,6 +77,13 @@ void MainWindow::continueGame(void)
     ui->startButton->setText("Pause");
     QObject::disconnect(ui->startButton,SIGNAL( clicked() ),this,SLOT( continueGame() ));
     QObject::connect(ui->startButton,SIGNAL( clicked() ),this,SLOT( pauseGame() ));
+}
+
+void MainWindow::changeInterval(int interval)
+{
+    main_timer_interval = max_interval / interval;
+
+    main_timer.setInterval(main_timer_interval);
 }
 
 MainWindow::~MainWindow()

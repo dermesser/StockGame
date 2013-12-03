@@ -76,9 +76,6 @@ void StockPriceHistoryPlot::setData(void)
 
     y[i] = current_price = company.updatePrice();
 
-    if ( current_price == 0 )
-        emit bankrupt();
-
     i++;
 
     avg.fill(company.avg_depot_price,2); // Set (0,avg_price) and (xmax,avg_price) for the green line.
@@ -91,6 +88,13 @@ void StockPriceHistoryPlot::setData(void)
 
     this->replot();
 
+    if ( current_price == 0 )
+        emit bankrupt();
+    if ( company.splitted )
+    {
+        company.splitted = false;
+        emit splitted();
+    }
     emit priceChanged(current_price);
 
     return;

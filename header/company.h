@@ -8,11 +8,10 @@
  * Just again a quite misleading name: This class represents the price
  * of a company along with its representation in the user's depot.
  */
-class Company : public QObject
+class Company
 {
-    Q_OBJECT
 public:
-    explicit Company(QObject *parent = 0);
+    explicit Company(void);
 
     void initCompany(double ymax = 100);
 
@@ -21,15 +20,11 @@ public:
     void buy(int);
     void sell(int);
 
-signals:
-    //void priceChanged(int);
-    void splitted(void);
-
-public slots:
     double updatePrice(void);
-    void split(void);
 
 private:
+    void split(void);
+
     LocalPriceGen price_generator;
 
     double current_price;
@@ -37,7 +32,7 @@ private:
     double total_value;
     double avg_depot_price;
     int ymax;
-    bool is_bankrupt;
+    bool is_bankrupt, splitted;
 
     friend class StockPriceHistoryPlot;
     friend class SingleStock;

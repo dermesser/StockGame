@@ -2,10 +2,9 @@
 #include <localpricegen.h>
 #include <iostream>
 
-Company::Company(QObject *parent) :
-    QObject(parent),
+Company::Company(void) :
     current_price(0), shares_in_depot(0), total_value(0),
-    ymax(0), is_bankrupt(false)
+    ymax(0), is_bankrupt(false), splitted(false)
 {
 }
 
@@ -32,7 +31,6 @@ double Company::updatePrice(void)
     {
         split();
         recalcAvg();
-        emit splitted();
     }
 
     return current_price;
@@ -49,6 +47,8 @@ void Company::split(void)
     shares_in_depot *= 2;
 
     avg_depot_price = total_value / shares_in_depot;
+
+    splitted = true;
 
     price_generator.setPrice(current_price);
 

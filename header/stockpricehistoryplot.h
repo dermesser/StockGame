@@ -23,6 +23,7 @@ public:
 signals:
     void priceChanged(int);
     void bankrupt(void);
+    void splitted(void);
 
 public slots:
     void setData();

@@ -27,7 +27,6 @@ double Company::updatePrice(void)
         is_bankrupt = true;
         current_price = shares_in_depot = total_value = 0;
         recalcAvg();
-        emit bankrupt();
     }
     else if (current_price >= 0.97 * ymax)
     {

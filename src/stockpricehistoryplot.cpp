@@ -75,6 +75,10 @@ void StockPriceHistoryPlot::setData(void)
     // Random number calculation
 
     y[i] = current_price = company.updatePrice();
+
+    if ( current_price == 0 )
+        emit bankrupt();
+
     i++;
 
     avg.fill(company.avg_depot_price,2); // Set (0,avg_price) and (xmax,avg_price) for the green line.

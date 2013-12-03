@@ -22,8 +22,7 @@ public:
     void sell(int);
 
 signals:
-    void priceChanged(int);
-    void bankrupt(void);
+    //void priceChanged(int);
     void splitted(void);
 
 public slots:

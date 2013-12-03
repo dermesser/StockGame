@@ -22,7 +22,7 @@ SingleStock::SingleStock(QWidget *parent) :
     QObject::connect(ui->orderStep,SIGNAL( valueChanged(int) ),this,SLOT( changeBuyStep(int) ));
 
     // Financial signals
-    QObject::connect(&ui->plot->company,SIGNAL( bankrupt(void) ),this,SLOT( bankrupt(void) ));
+    QObject::connect(ui->plot,SIGNAL( bankrupt(void) ),this,SLOT( bankrupt(void) ));
     QObject::connect(&ui->plot->company,SIGNAL( splitted(void) ),this,SLOT( split(void) ));
 
     setCompanyName();

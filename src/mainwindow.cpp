@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    initial_money = 0;
+    initial_money = default_initial_money;
 
     seed(); // For the ticker symbols!
 

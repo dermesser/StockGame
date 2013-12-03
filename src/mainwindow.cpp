@@ -86,10 +86,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::afterGameFinished(void)
 {
-    if ( deposit.getMoney() - default_initial_money > 0 )
+    if ( deposit.getMoney() - initial_money > 0 )
         std::cout << "Congratulations! You earned " << deposit.getMoney() - initial_money << " units of liquid capital!\n";
-    else if ( deposit.getMoney() - default_initial_money == 0)
-    {}
+    else if ( deposit.getMoney() - initial_money == 0)
+    {
+    }
     else
         std::cout << "Congratulations! You lost " << ((-1) * (deposit.getMoney() - initial_money)) << " units of liquid capital!\n";
 

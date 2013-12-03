@@ -87,11 +87,6 @@ void SingleStock::split(void)
 
 void SingleStock::bankrupt(void)
 {
-    ui->plot->company.shares_in_depot = 0;
-    ui->plot->company.total_value = 0;
-
-    ui->plot->company.recalcAvg();
-
     ui->lcdStocks->display(0);
     ui->lcdPrice->display(0);
     ui->lcdPrice->setAutoFillBackground(true);

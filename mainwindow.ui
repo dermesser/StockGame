@@ -86,6 +86,9 @@
             <height>0</height>
            </size>
           </property>
+          <property name="numDigits">
+           <number>6</number>
+          </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
           </property>
@@ -116,8 +119,7 @@
          <widget class="SingleStock" name="widget_2" native="true"/>
         </item>
         <item>
-         <widget class="SingleStock" name="widget_3" native="true">
-         </widget>
+         <widget class="SingleStock" name="widget_3" native="true"/>
         </item>
        </layout>
       </item>

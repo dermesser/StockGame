@@ -25,12 +25,14 @@ double Company::updatePrice(void)
     if (current_price <= 0.02 * ymax)
     {
         is_bankrupt = true;
-        current_price = 0;
+        current_price = shares_in_depot = total_value = 0;
+        recalcAvg();
         emit bankrupt();
     }
     else if (current_price >= 0.97 * ymax)
     {
         split();
+        recalcAvg();
         emit splitted();
     }
 

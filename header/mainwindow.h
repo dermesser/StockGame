@@ -34,7 +34,11 @@ public slots:
     void continueGame(void);
     void seed(void);
 
+private slots:
+    void afterGameFinished(void);
+
 private:
+
    Ui::MainWindow *ui;
 
    QTimer reseed_timer;

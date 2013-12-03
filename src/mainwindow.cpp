@@ -4,12 +4,15 @@
 
 MoneyAvailable deposit;
 QTimer main_timer;
+unsigned int initial_money;
 
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    initial_money = 0;
+
     seed(); // For the ticker symbols!
 
     ui->setupUi(this);
@@ -41,7 +44,7 @@ void MainWindow::seed(void)
 
 void MainWindow::startGame(void)
 {
-    deposit.changeMoney(ui->initialMoney->value());
+    deposit.changeMoney(initial_money = ui->initialMoney->value());
     ui->initialMoney->hide();
     ui->lcdMoney->show();
 
@@ -76,13 +79,19 @@ void MainWindow::continueGame(void)
 
 MainWindow::~MainWindow()
 {
-    if ( deposit.getMoney() - default_initial_money > 0 )
-        std::cout << "Congratulations! You earned " << deposit.getMoney() - default_initial_money << " units of liquid capital!\n";
-    else if ( deposit.getMoney() - default_initial_money == 0)
-    {}
-    else
-        std::cout << "Congratulations! You lost " << ((-1) * (deposit.getMoney() - default_initial_money)) << " units of liquid capital!\n";
+    afterGameFinished();
 
     delete ui;
 }
 
+void MainWindow::afterGameFinished(void)
+{
+    if ( deposit.getMoney() - default_initial_money > 0 )
+        std::cout << "Congratulations! You earned " << deposit.getMoney() - initial_money << " units of liquid capital!\n";
+    else if ( deposit.getMoney() - default_initial_money == 0)
+    {}
+    else
+        std::cout << "Congratulations! You lost " << ((-1) * (deposit.getMoney() - initial_money)) << " units of liquid capital!\n";
+
+    return;
+}

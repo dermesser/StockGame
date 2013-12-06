@@ -12,6 +12,8 @@ const int default_initial_money = 10000;
 const int max_interval = 400;
 extern unsigned int main_timer_interval;
 
+extern QTimer main_timer, trend_adapt_timer;
+
 namespace Ui {
 class MainWindow;
 }
@@ -47,6 +49,5 @@ private:
 
 };
 
-extern QTimer main_timer;
 
 #endif // MAINWINDOW_H

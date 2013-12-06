@@ -15,9 +15,13 @@ public:
     double getPrice(void);
     void setPrice(double);
 
+public slots:
+    void newTrendCoeff(void);
+
 private:
     int ymax;
     double current_price;
+    double trend_coeff;
 
 };
 

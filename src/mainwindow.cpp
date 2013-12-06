@@ -3,7 +3,7 @@
 #include <iostream>
 
 MoneyAvailable deposit;
-QTimer main_timer;
+QTimer main_timer, trend_adapt_timer;
 unsigned int initial_money;
 
 unsigned int main_timer_interval;
@@ -27,13 +27,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(&reseed_timer,SIGNAL( timeout() ),this,SLOT( seed() ));
     QObject::connect(ui->speedBox,SIGNAL( valueChanged(int) ),this,SLOT( changeInterval(int)) );
 
+    // Initialize reseed timer
     reseed_timer.setSingleShot(false);
-    reseed_timer.setInterval(5e3);
-
+    reseed_timer.setInterval(30e3);
     reseed_timer.start();
 
-    main_timer.setSingleShot(false);
+    // Initialize market change timer (trend_adapt_timer)
+    trend_adapt_timer.setSingleShot(false);
+    trend_adapt_timer.setInterval(100);
+    trend_adapt_timer.start();
 
+    // Set up main timer (controlling the update frequency of the prices)
+    main_timer.setSingleShot(false);
     // Set timer interval to 400 / 8 = 50 ms
     ui->speedBox->setValue(8);
 }

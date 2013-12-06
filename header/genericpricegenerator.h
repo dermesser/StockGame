@@ -16,6 +16,7 @@ public:
 signals:
 
 public slots:
+    virtual void newTrendCoeff(void) = 0; // defined as {} for remote price generators.
 
 };
 

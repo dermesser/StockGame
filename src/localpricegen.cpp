@@ -4,7 +4,8 @@
 LocalPriceGen::LocalPriceGen(QObject *parent) :
     GenericPriceGenerator(parent),
     ymax(100),
-    current_price(ymax/2)
+    current_price(ymax/2),
+    trend_coeff(4.5)
 {
 }
 
@@ -36,7 +37,7 @@ double LocalPriceGen::getPrice(void)
         value += ((qrand() % 10) - 3)/getRandomDivisor();
     else if ( value > (ymax - threshold) )
         value += ((qrand() % 10) - 7)/getRandomDivisor();
-    else value += ((qrand() % 10) - 4.6)/getRandomDivisor();
+    else value += ((qrand() % 10) - trend_coeff)/getRandomDivisor();
 
     current_price = value;
 
@@ -46,6 +47,13 @@ double LocalPriceGen::getPrice(void)
 void LocalPriceGen::setPrice(double p)
 {
     current_price = p;
+
+    return;
+}
+
+void LocalPriceGen::newTrendCoeff(void)
+{
+    trend_coeff = 4.2 + 0.2 * (qrand()%5);
 
     return;
 }

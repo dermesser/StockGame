@@ -53,7 +53,7 @@ void LocalPriceGen::setPrice(double p)
 
 void LocalPriceGen::newTrendCoeff(void)
 {
-    trend_coeff = 4.0 + 0.2 * (qrand()%5);
+    trend_coeff = 4.1 + 0.2 * (qrand()%5);
 
     return;
 }
